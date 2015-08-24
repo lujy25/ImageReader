@@ -5,13 +5,40 @@ import java.awt.Image;
 public class ImageReaderTest {
     private static ImplementImageIO  imageIO;
     private static ImplementProcesser processor;
+    private Image testImage;
+    private Image goalImage;
+    private String goalFilePath;
+    private String testFilePath;
+    public ImageReaderTest(String goalFilePath, String testFilePath) {
+	this.goalInput = goalFilePath;
+	this.testFilePath = testFilePath;
+    }
+    @Parameters
+	public static Collection prepareData() {
+	//test data
+	Object[][] objects = {
+	    {"goal/1_red_goal.bmp", "1.bmp"},
+	    {"goal/1_green_goal.bmp", "1.bmp"},
+	    {"goal/1_blue_goal.bmp", "1.bmp"},
+	    {"goal/1_grey_goal.bmp", "1.bmp"},
+	    {"goal/2_red_goal.bmp", "2.bmp"},
+	    {"goal/2_green_goal.bmp", "2.bmp"},
+	    {"goal/2_blue_goal.bmp", "2.bmp"},
+	    {"goal/2_grey_goal.bmp", "2.bmp"}
+	};
+	return Arrays.asList(objects);
+    }
     @BeforeClass
 	public void beforeTest() {
 	imageIO = new ImplementImageIO();
 	processor = new ImplementImageIO();
     }
-public boolean isEqual
-    @Test
+	@Test
+	    public void testImageProcessor() throws IOException {
+	    goalImage = imageIO.myRead(goalFilePath);
+testImage = imageIO.
+	    if (goalFilePath.contains("red")) {
+		image =  processor.showChanelR(image);
 	public void testMyRead1() {
 	String filePath1 = "bmptest/1.bmp";
 	Image image1 = imageIO.myRead(filePath1);
