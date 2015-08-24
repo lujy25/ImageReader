@@ -1,10 +1,10 @@
 <?xml version = "1.0"?>
-<project name = "ImageReader" default = "run" basedir = ".">
+<project name = "ImageReader" default = "junit" basedir = ".">
   <description>run the imageRead </description>
   <property name = "lib.dir" location = "lib"/>
   <property name = "build.dir" location = "build"/>
   <property name = "src.dir" location = "src"/>
-  <property name = "{reports.dir" location = "${build}/reports"/>
+  <property name = "reports.dir" location = "${build.dir}/reports"/>
   <path id = "compile.path">
     <fileset dir = "${lib.dir}">
       <include name = "**/*.jar"/>
@@ -14,7 +14,7 @@
   <target name = "init">
     <delete dir = "${build.dir}"/>
     <mkdir dir = "${build.dir}"/>
-    <mkdir dir = "${reports}"/>
+    <mkdir dir = "${reports.dir}"/>
   </target>
 
   <target name = "compile" depends = "init">
@@ -23,7 +23,7 @@
     </javac>
   </target>
   <target name = "run" depends = "compile">
-    <java classname = "ImageReaderRunner" fork = "true">
+    <java classname = "src.ImageReaderRunner" fork = "true">
       <classpath path = "${build.dir}"/>
       <classpath refid = "compile.path"/>
     </java>

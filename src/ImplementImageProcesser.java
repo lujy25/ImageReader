@@ -1,3 +1,4 @@
+package src;
 import java.awt.image.MemoryImageSource;
 import imagereader.IImageProcessor;
 import java.awt.image.BufferedImage;
@@ -42,7 +43,7 @@ class ImplementImageProcesser implements IImageProcessor {
 		    int R = (rgb & RED_CHANEL & HIGH_BIT_ZEOR) >>16;
 		    int G = (rgb & GREEN_CHANEL & HIGH_BIT_ZEOR) >> 8;
 		    int B = (rgb & BLUE_CHANEL & HIGH_BIT_ZEOR);
-		    int grey =  (int)(0.299 * R + 0.587 * G + 0.144 * B);
+		    int grey =  (int)(0.299 * R + 0.587 * G + 0.114 * B);
 		    return grey + (grey << 8) + (grey << 16) + (HEX << 24);
 		}
 	    });

@@ -1,3 +1,4 @@
+package src;
 import imagereader.IImageIO;
 import java.awt.Image;
 import java.io.File;
@@ -114,7 +115,6 @@ class ImplementImageIO implements IImageIO {
 	    cursor += emptyPad;
 	}
 	return realRgbData;
-	//	return null;
     }
     public Image myWrite(Image image, String filePath) {
 	BufferedImage bufferedImage = ImplementImageProcesser.imageToBufferImage(image);
