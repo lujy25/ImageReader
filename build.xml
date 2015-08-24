@@ -1,0 +1,50 @@
+<?xml version = "1.0"?>
+<project name = "ImageReader" default = "run" basedir = ".">
+  <description>run the imageRead </description>
+  <property name = "lib.dir" location = "lib"/>
+  <property name = "build.dir" location = "build"/>
+  <property name = "src.dir" location = "src"/>
+  <property name = "{reports.dir" location = "${build}/reports"/>
+  <path id = "compile.path">
+    <fileset dir = "${lib.dir}">
+      <include name = "**/*.jar"/>
+    </fileset>
+  </path>
+  
+  <target name = "init">
+    <delete dir = "${build.dir}"/>
+    <mkdir dir = "${build.dir}"/>
+    <mkdir dir = "${reports}"/>
+  </target>
+
+  <target name = "compile" depends = "init">
+    <javac srcdir = "${src.dir}" destdir = "${build.dir}" classpathref = "compile.path" includeantruntime = "true">
+      <compilerarg value="-Xlint:unchecked"/>
+    </javac>
+  </target>
+  <target name = "run" depends = "compile">
+    <java classname = "ImageReaderRunner" fork = "true">
+      <classpath path = "${build.dir}"/>
+      <classpath refid = "compile.path"/>
+    </java>
+  </target>
+
+  <target name = "junit" depends = "compile">
+    <junit haltonfailure = "false" printsummary = "true" fork = "true">
+      <classpath refid = "compile.path"/>
+      <formatter type = "xml"/>
+      <batchtest todir = "${reports.dir}" unless = "testcase">
+	<fileset dir = "${build.dir}">
+	  <include name = "**/*Test.class"/>
+	</fileset>
+      </batchtest>
+      <classpath path = "${build.dir}"/>
+    </junit>
+    <junitreport todir="${reports.dir}">
+      <fileset dir="${reports.dir}">
+	<include name="TEST-*.xml" />
+      </fileset>
+      <report format="frames" todir="${reports.dir}" />
+    </junitreport>
+  </target>
+</project>

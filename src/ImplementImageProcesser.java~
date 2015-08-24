@@ -1,0 +1,64 @@
+import java.awt.image.MemoryImageSource;
+import imagereader.IImageProcessor;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.awt.image.DataBufferByte;
+import javax.swing.ImageIcon;
+import java.awt.*;
+class ImplementImageProcesser implements IImageProcessor {
+    public Image showChanelR(Image sourceImage) {
+	//	int[]rgbArray = imageToRGBArray(sourceImage);
+	//	MemoryStream ms = new System.IO.MemoryStream(rgbArray);  
+	//	Image img = Image.FromStream(ms);  
+	//	return img; 
+	BufferedImage bufferedImage = imageToBufferImage(sourceImage);
+	for (int i = 0 ;i < 100 ; ++i)
+	    for (int j  = 0 ; j < 100 ; ++j)
+		System.out.println(bufferedImage.getRGB(i,j));
+	return null;
+
+    }
+    public Image showChanelG(Image sourceImage) {
+	return null;
+
+    }
+    public Image showChanelB(Image sourceImage) {
+
+	return null;
+    }
+    public Image showGray(Image sourceImage) {
+
+	return null;
+
+    }
+
+    private BufferedImage imageToBufferImage(Image image) {
+	//ensures all the pixels in the image are loaded
+	image = new ImageIcon(image).getImage();
+	BufferedImage bufferedImage = null;
+	try {
+	    GraphicsDevice graphicsDevice = GraphicsEnvironment.
+		getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	    GraphicsConfiguration graphicsConfiguration = GraphicsEnvironment
+		.getLocalGraphicsEnvironment()
+		.getDefaultScreenDevice()
+		.getDefaultConfiguration();
+	    // Create the buffered image
+	    bufferedImage = graphicsConfiguration
+		.createCompatibleImage( image.getWidth(null), image.getHeight(null), Transparency.OPAQUE);
+	} catch (HeadlessException e) {
+	    // The system does not have a screen
+	    e.printStackTrace();
+	}
+	if (bufferedImage == null) {
+	    bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
+	}
+ 
+	// Copy image to buffered image
+	Graphics graphics = bufferedImage.createGraphics();
+	// Paint the image onto the buffered image
+	graphics.drawImage(image, 0, 0, null);
+	graphics.dispose();
+	return bufferedImage;
+    }
+}
